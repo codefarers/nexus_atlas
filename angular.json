@@ -4,7 +4,7 @@
   "cli": {
     "packageManager": "npm"
   },
-  "newProjectRoot": "projects",
+  "newProjectRoot": "apps",
   "projects": {
     "nexus_atlas": {
       "projectType": "application",
@@ -69,6 +69,15 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/nexus_flow/**/*.ts",
+              "apps/nexus_flow/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -79,23 +88,23 @@
           "style": "scss"
         }
       },
-      "root": "projects/nexus_flow",
-      "sourceRoot": "projects/nexus_flow/src",
+      "root": "apps/nexus_flow",
+      "sourceRoot": "apps/nexus_flow/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "projects/nexus_flow/src/main.ts",
-            "tsConfig": "projects/nexus_flow/tsconfig.app.json",
+            "browser": "apps/nexus_flow/src/main.ts",
+            "tsConfig": "apps/nexus_flow/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/nexus_flow/public"
+                "input": "apps/nexus_flow/public"
               }
             ],
-            "styles": ["projects/nexus_flow/src/styles.scss"]
+            "styles": ["apps/nexus_flow/src/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -135,6 +144,15 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/nexus_flow/src/**/*.ts",
+              "apps/nexus_flow/src/**/*.html"
+            ]
+          }
         }
       }
     }
