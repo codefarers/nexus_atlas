@@ -1,25 +1,35 @@
-import js from "@eslint/js";
+// @ts-check
+import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import angular from "angular-eslint";
 
-export default [
-  js.configs.recommended,
-
-  ...tseslint.configs.recommended,
-  ...angular.configs.tsRecommended,
-
+export default tseslint.config(
   {
     files: ["**/*.ts"],
-    languageOptions: {
-      parser: tseslint.parser,
-      parserOptions: {
-        project: true
-      }
-    }
+    extends: [
+      eslint.configs.recommended,
+      ...tseslint.configs.recommended,
+      ...tseslint.configs.stylistic,
+      ...angular.configs.tsRecommended,
+    ],
+    processor: angular.processInlineTemplates,
+    rules: {
+      "@angular-eslint/directive-selector": [
+        "error",
+        { type: "attribute", prefix: "app", style: "camelCase" },
+      ],
+      "@angular-eslint/component-selector": [
+        "error",
+        { type: "element", prefix: "app", style: "kebab-case" },
+      ],
+    },
   },
-
   {
     files: ["**/*.html"],
-    ...angular.configs.templateRecommended
+    extends: [
+      ...angular.configs.templateRecommended,
+      ...angular.configs.templateAccessibility,
+    ],
+    rules: {},
   }
-];
+);
